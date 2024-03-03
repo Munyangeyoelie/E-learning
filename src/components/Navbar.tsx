@@ -6,6 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
 import { Logo } from "./logo/Logo";
+import { Session } from "next-auth";
 
 function NavBar() {
   const [session]: [Session | null] = useSession();
