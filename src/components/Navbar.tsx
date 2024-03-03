@@ -5,7 +5,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useMediaQuery } from "react-responsive";
 import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
-import { Logo } from "./logo";
+import { Logo } from "./logo/Logo";
 
 function NavBar() {
   const [session]: [Session | null] = useSession();
@@ -31,7 +31,7 @@ function NavBar() {
               About
             </Link>
             <Link to="/community" className="ml-6 text-xl font-bold">
-              Communityy
+              Community
             </Link>
           </div>
         </div>
@@ -70,7 +70,13 @@ function NavBar() {
               Sign Out
             </button>
           ) : (
-            <button onClick={signIn} className="ml-6 text-xl font-bold">
+            <button
+              type="button"
+              onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
+                signIn(event)
+              }
+              className="ml-6 text-xl font-bold"
+            >
               Sign In
             </button>
           )}
