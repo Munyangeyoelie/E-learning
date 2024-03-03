@@ -9,7 +9,7 @@ import { Logo } from "./logo/Logo";
 import { Session } from "next-auth";
 
 function NavBar() {
-  const [session]: [Session | null] = useSession();
+  const [session, loading] = useSession();
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
