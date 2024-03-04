@@ -5,25 +5,18 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useMediaQuery } from "react-responsive";
 import { Menu, MenuButton, MenuList, MenuItem, Button } from "@chakra-ui/react";
 import { FaBars } from "react-icons/fa";
-import { Logo } from "./logo/Logo";
-import { Session } from "next-auth";
-
 function NavBar() {
-  const [session, loading] = useSession();
-  const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const handleSignOut = async () => {
     await signOut();
-    navigate("/");
   };
 
   return (
     <nav>
       <div className="container mx-auto px-6 py-3 flex justify-between items-center">
         <div className="flex items-center">
-          <Logo className="h-10" />
+          <h1>Shime </h1>
           <div className="hidden md:block">
             <Link to="/" className="ml-6 text-xl font-bold">
               Home
@@ -46,41 +39,35 @@ function NavBar() {
               Menu
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={() => navigate("/")}>Home</MenuItem>
-              <MenuItem onClick={() => navigate("/about")}>About</MenuItem>
-              <MenuItem onClick={() => navigate("/community")}>
-                Community
+              <MenuItem onClick={() => "/"}>Home</MenuItem>
+              <MenuItem onClick={() => "/about"}>About</MenuItem>
+              <MenuItem onClick={() => "/community"}>Community</MenuItem>(
+              <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>) : (
+              <MenuItem
+                onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  signIn<"credentials">()
+                }
+              >
+                Sign In
               </MenuItem>
-              {session ? (
-                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
-              ) : (
-                <MenuItem
-                  onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                    signIn<"credentials">(e)
-                  }
-                >
-                  Sign In
-                </MenuItem>
-              )}
+              )
             </MenuList>
           </Menu>
         </div>
         <div className="flex md:hidden">
-          {session ? (
-            <button onClick={handleSignOut} className="ml-6 text-xl font-bold">
-              Sign Out
-            </button>
+          (
+          <button onClick={handleSignOut} className="ml-6 text-xl font-bold">
+            Sign Out
+          </button>
           ) : (
-            <button
-              type="button"
-              onClick={(event: React.MouseEvent<HTMLButtonElement>) =>
-                signIn(event)
-              }
-              className="ml-6 text-xl font-bold"
-            >
-              Sign In
-            </button>
-          )}
+          <button
+            type="button"
+            onClick={(event: React.MouseEvent<HTMLButtonElement>) => signIn()}
+            className="ml-6 text-xl font-bold"
+          >
+            Sign In
+          </button>
+          )
         </div>
       </div>
     </nav>
